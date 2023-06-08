@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% extends 'homepage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Add Generes</h4>
+                  <p class="card-description"></p>
+                  <form class="forms-sample" method="post" action="{% url 'savegeneres' %}">
+                      {% csrf_token %}
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">Generes Name</label>
+                      <input type="text" class="form-control" id="exampleInputUsername1" placeholder="generes/type" name="gener">
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-info">Submit</button>
+                    <button type="submit" class="btn btn-outline-danger">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+
+</body>
+
+</html>
+{% endblock %}

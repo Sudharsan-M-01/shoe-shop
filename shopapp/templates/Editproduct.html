@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% extends 'homepage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Edit Product</h4>
+                  <form class="forms-sample" action="{% url 'updateproduct' dataid=data.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="exampleInputName1">Name</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="name" value="{{data.Name}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">Category</label>
+                        <select class="form-control" id="exampleSelectGender" name="category" value="{{data.Categoryname}}">
+                          {% for d in bata %}
+                          <option>{{d.Categoryname}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+
+                    <div class="form-group">
+                      <label>Price</label>
+                      <input type="number" class="form-control" placeholder="amount" name="price" value="{{data.Price}}">
+                    </div>
+                    <div class="form-group">
+                      <label>Size</label>
+                      <input type="number" class="form-control" placeholder="size" name="size" value="{{data.Size}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">Color</label>
+                        <select class="form-control" id="exampleSelectGender2" name="color" value="{{data.Color}}">
+                          <option>Black</option>
+                          <option>White</option>
+                        </select>
+                      </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">Generes/types</label>
+                        <select class="form-control" id="exampleSelectGender4" name="genrstype" value="{{data.Type}}">
+                          {% for i in gernes %}
+                          <option>{{i.Generess}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">About</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4" name="about" value="{{data.About}}"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label>File upload</label><br>
+                      <input type="file" name="image">
+
+                    </div>
+<!--                    <div class="form-group">-->
+<!--                      <label>File upload</label>-->
+<!--                      <input type="file" name="img[]" class="file-upload-default">-->
+<!--                      <div class="input-group col-xs-12">-->
+<!--                        <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image" name="image" value="{{d.Image}}">-->
+<!--                        <span class="input-group-append">-->
+<!--                          <button class="file-upload-browse btn btn-primary" type="button">Upload</button>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+</body>
+</html>
+{% endblock %}

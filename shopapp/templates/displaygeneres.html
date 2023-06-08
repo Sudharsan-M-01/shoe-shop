@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends 'homepage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-lg-11 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Display Generes</h4>
+                  <p class="card-description">
+                    Add class <code>.table</code>
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Generes</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for d in data %}
+                        <tr>
+                          <td>{{d.Generess}}</td>
+
+                          <td>
+                            <form method="post" action="{% url 'deletegeneres' dataid=d.id %}">
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                          </td>
+                        </tr>
+<!--                        <tr>-->
+<!--                          <td>Messsy</td>-->
+<!--                          <td>53275532</td>-->
+<!--                          <td>15 May 2017</td>-->
+<!--                          <td><label class="badge badge-warning">In progress</label></td>-->
+<!--                        </tr>-->
+
+                      </tbody>
+                      {% endfor %}
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+</body>
+</html>
+{% endblock %}

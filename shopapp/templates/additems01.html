@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+{% extends 'homepage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-8 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Add Items</h4><br>
+                  <p class="card-description"></p>
+                  <form class="forms-sample" action="{% url 'saveitems' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="exampleInputName1">Name</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="name">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleSelectGender">Category</label>
+                        <select class="form-control" id="exampleSelectGender" name="categoryname">
+                          {% for i in data %}
+                          <option>{{i.Categoryname}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">product category</label>
+                        <select class="form-control" id="exampleSelectGender" name="productname">
+                          {% for i in tata %}
+                          <option>{{i.Name}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword4">Price</label>
+                      <input type="number" class="form-control" id="exampleInputPassword4" placeholder="Amount" name="price">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword4">Size</label>
+                      <input type="number"min="3" max="12" class="form-control" id="exampleInputPassword4" placeholder="Size"name="size">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword4">Color</label>
+                      <select class="form-control" id="exampleSelectGender1" name="color">
+                        <option>black</option>
+                        <option>white</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">Generes/types</label>
+                        <select class="form-control" id="exampleSelectGender4" name="gener">
+                          {% for i in gernes %}
+                          <option>{{i.Generess}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">About</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4" name="about"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label>File upload</label><br>
+                      <input type="file" name="image">
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button type="submit" class="btn btn-light">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+<script src="http://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+{% if messages %}
+{% for message in messages %}
+
+{% if message.tags == 'warning' %}
+<script>
+  swal('{{message}}','','warning');
+</script>
+
+{% elif message.tags == 'error' %}
+<script>
+  swal('{{message}}','','error');
+</script>
+
+{% else %}
+<script>
+  swal('{{message}}','','success');
+</script>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+</body>
+</html>
+{% endblock %}
