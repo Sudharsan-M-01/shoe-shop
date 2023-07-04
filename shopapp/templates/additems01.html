@@ -2,6 +2,7 @@
 {% extends 'homepage.html' %}
 {% block content %}
 <html lang="en">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -52,10 +53,11 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleSelectGender">Generes/types</label>
-                        <select class="form-control" id="exampleSelectGender4" name="gener">
-                          {% for i in gernes %}
-                          <option>{{i.Generess}}</option>
-                          {% endfor %}
+                        <select class="form-control" id="exampleSelectGender4" name="type">
+
+                          <option>Sports</option>
+                          <option>Formal</option>
+
                         </select>
                       </div>
                     <div class="form-group">

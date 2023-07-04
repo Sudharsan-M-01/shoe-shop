@@ -2,6 +2,7 @@
 {% extends 'homepage.html' %}
 {% block content %}
 <html lang="en">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -76,6 +77,32 @@
                 </div>
               </div>
             </div>
+
+<script src="http://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+{% if messages %}
+{% for message in messages %}
+
+{% if message.tags == 'warning' %}
+<script>
+  swal('{{message}}','','warning');
+</script>
+
+{% elif message.tags == 'error' %}
+<script>
+  swal('{{message}}','','error');
+</script>
+
+{% else %}
+<script>
+  swal('{{message}}','','success');
+</script>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
 </body>
 </html>
 {% endblock %}

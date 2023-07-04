@@ -2,7 +2,7 @@ from django.urls import path
 from frontapp import views
 
 urlpatterns=[
-    path('',views.home,name="home"),
+    path('home/',views.home,name="home"),
     path('product/<itemcat>/',views.product,name="product"),
     path('typess/<itemcat>/',views.typess,name="typess"),
     path('single/<dataid>/',views.single,name="single"),
@@ -19,4 +19,5 @@ urlpatterns=[
     path('userloginpage/',views.userloginpage,name="userloginpage"),
     path('userlogout/',views.userlogout,name="userlogout"),
     path('savecheckout/',views.savecheckout,name="savecheckout"),
+    path('allpro/',views.allpro,name="allpro"),
 ]

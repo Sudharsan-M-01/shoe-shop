@@ -4,6 +4,7 @@ from frontapp.models import customerdetails,newcartdb,checkoutdb
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
+from django.db.models import Sum
 
 
 
@@ -42,7 +43,9 @@ def cart(req):
     data = CategoryDB.objects.all()
     # newproducts = itemDB.objects.get(id=dataid)
     cart=newcartdb.objects.filter(userr=req.session['username'])
-    return render(req,"5cart.html",{"data":data,"cart":cart})
+    cart_session=newcartdb.objects.filter(userr=req.session['username'])
+    grandtotal=cart.aggregate(Sum("totalprices"))["totalprices__sum"]
+    return render(req,"5cart.html",{"data":data,"cart":cart,"cart_session":cart_session,"grandtotal":grandtotal})
 
 def savecartt(request):
     if request.method=="POST":
@@ -53,13 +56,17 @@ def savecartt(request):
         ss=request.POST.get('size')
         tl=request.POST.get('tp')
         ur=request.POST.get('user')
-        obj=newcartdb(names=nm,prices=pr,quantities=qt,sizes=ss,totalprices=tl,userr=ur)
+        product_id = request.POST.get('productimagee')
+        pimage = itemDB.objects.get(id=product_id)
+        image = pimage.Imagee
+        obj=newcartdb(names=nm,prices=pr,quantities=qt,sizes=ss,totalprices=tl,userr=ur,Imagee=image)
         obj.save()
         return redirect(home)
 
 def deletecart(request, dataid):
     data=newcartdb.objects.filter(id=dataid)
     data.delete()
+    messages.warning(request,"Product Removed From Cart")
     return redirect(cart)
 
 def about(request):
@@ -67,10 +74,13 @@ def about(request):
     return render(request,"about02.html",{"data":data})
 
 def contact(request):
+    messages.success(request,"Message sent successfully")
     return render(request,"7contactpage.html")
 
 def checkout(req):
-    return render(req,"8checkoutpage.html")
+    cart = newcartdb.objects.filter(userr=req.session['username'])
+    grandtotal = cart.aggregate(Sum("totalprices"))["totalprices__sum"]
+    return render(req,"8checkoutpage.html",{"cart":cart,"grandtotal":grandtotal})
 
 def userlogin(request):
     return render(request,"6userlogin.html")
@@ -121,6 +131,11 @@ def savecheckout(req):
         em=req.POST.get('emailaddress')
         obj=checkoutdb(Fname=fm,Lname=lm,Country=ctry,Address=add,Towncity=tc,Pincode=pin,Phone=ph,Emailaddress=em)
         obj.save()
-        messages.success(request, "product saved successfully")
-        return redirect(home)
+        messages.success(req, "product saved successfully")
+        return redirect(checkout)
+
+def allpro(req):
+    data = itemDB.objects.all()
+    bata = CategoryDB.objects.all()
+    return render(req,"allproducts.html",{"data":data,"bata":bata})
 

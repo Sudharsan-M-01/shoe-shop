@@ -52,6 +52,7 @@ def updatecategory(req,dataid):
 def categorydelete(request,dataid):
     data=CategoryDB.objects.filter(id=dataid)
     data.delete()
+    messages.error(request, "Category Deleted")
     return redirect(categorydisplay)
 
 def addproductpage(request):
@@ -104,6 +105,7 @@ def updateproduct(req,dataid):
 def deleteproduct(request, dataid):
     data=productDB.objects.filter(id=dataid)
     data.delete()
+    messages.error(request,"Product Deleted Successfully")
     return redirect(displayproduct)
 
 def loginpage(request):
@@ -146,7 +148,7 @@ def saveitems(req):
         img=req.FILES['image']
         obj=itemDB(Namee=na,Categorynamee=ca,productname=pn,Pricee=pr,Sizee=sz,Colorr=col,Typee=tp,Aboutt=abt,Imagee=img)
         obj.save()
-        messages.success(req, "Product added successfully")
+        messages.success(req, "Item added successfully")
         return redirect(additems)
 def displayitems(request):
     data=itemDB.objects.all()
@@ -178,5 +180,6 @@ def updateitem(req,dataid):
 def deleteitem(request, dataid):
     data=itemDB.objects.filter(id=dataid)
     data.delete()
+    messages.error(request, "Item Deleted Successfully")
     return redirect(displayitems)
 

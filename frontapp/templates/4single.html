@@ -36,11 +36,11 @@
 		    		<div class="row d-flex">
 		    			<div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+ 1235 2355 98</span>
+						    <span class="text">+91 999 8888 000</span>
 					    </div>
 					    <div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">youremail@email.com</span>
+						    <span class="text">minishop123@email.com</span>
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
 						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
@@ -75,9 +75,9 @@
 <!--				  {% endfor %}-->
 <!--              </div>-->
 <!--            </li>-->
-	          <li class="nav-item"><a href="{% static 'about.html' %}" class="nav-link" style="color:white">About</a></li>
-	          <li class="nav-item"><a href="{% static 'blog.html' %}" class="nav-link" style="color:white">Blog</a></li>
-	          <li class="nav-item"><a href="{% static 'contact.html' %}" class="nav-link" style="color:white">Contact</a></li>
+	          <li class="nav-item"><a href="{% url 'about' %}" class="nav-link" style="color:white">About</a></li>
+<!--	          <li class="nav-item"><a href="{% static 'blog.html' %}" class="nav-link" style="color:white">Blog</a></li>-->
+	          <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link" style="color:white">Contact</a></li>
 <!--	          <li class="nav-item cta cta-colored"><a href="{% static 'cart.html' %}" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>-->
 
 	        </ul>
@@ -103,7 +103,8 @@
 				{% csrf_token %}
     		<div class="row">
     			<div class="col-lg-6 mb-5 ftco-animate">
-    				<a href="{% static 'images/product-1.png' %}" name="image" class="image-popup prod-img-bg"><img src="{{productss.Imagee.url}}" class="img-fluid" alt="Colorlib Template"></a>
+    				<a href="{% static 'images/product-1.png' %}" name="image" class="image-popup prod-img-bg home-img"><img src="{{productss.Imagee.url}}" class="img-fluid" alt="Colorlib Template"></a>
+					<input type="hidden" value="{{productss.id}}" name="productimagee">
 
     			</div>
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
@@ -184,7 +185,13 @@
           	</div>
 <!--          	<p><a href="" class="btn btn-black py-3 px-5 mr-2">Place Order</a><a href="cart.html" class="btn btn-primary py-3 px-5">Buy now</a></p>-->
 <!--		<a class="btn btn-black"><button type="submit" class="">save</button></a>-->
-		<a class="btn btn-dark btn-sm"><button type="submit">Place Order</button></a>
+		{% if request.session.username %}
+		<a class="btn btn-dark btn-sm"><button type="submit" onclick="alert('Added to cart successfully')">Add To Cart</button></a>
+		{% else %}
+		<form action="{% url 'userlogin' %}" method="post">
+			{% csrf_token %}
+		<a class="btn btn-dark btn-sm"><button type="submit" onclick="alert('Login to purchase')">Add To Cart</button></a></form>
+{% endif %}
     			</div>
     		</div>
 
@@ -326,7 +333,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!--						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
 						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						</p>
           </div>
@@ -406,6 +413,34 @@
 	  })
 	  })
   </script>
+<style>
+			.home-img{
+			 opacity: 0;
+             animation: zoomIn 1s ease forwards,floatImage 2s ease-in-out infinite;
+            animation-delay: 1s;
+					}
+					@keyframes zoomIn{
+            0%{
+                transform: scale(0);
+                opacity: 0;
+            }
+            100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
 
+        @keyframes floatImage{
+            0%{
+                transform: translateY();
+            }
+            50%{
+                transform: translateY(-24px);
+            }
+            100%{
+                transform: translateY();
+            }
+        }
+				</style>
   </body>
 </html>

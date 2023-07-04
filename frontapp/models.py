@@ -14,6 +14,7 @@ class newcartdb(models.Model):
     sizes = models.CharField(max_length=100,null=True,blank=True)
     totalprices = models.IntegerField(max_length=100,null=True,blank=True)
     userr = models.CharField(max_length=100,null=True,blank=True)
+    Imagee=models.ImageField(upload_to="profile",null=True,blank=True)
 
 class checkoutdb(models.Model):
     Fname = models.CharField(max_length=100, null=True, blank=True)
